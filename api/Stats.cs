@@ -4,17 +4,17 @@ using Postgrest.Models;
 namespace api;
 
 [Table("stats")]
-public class Stats : BaseModel 
+public class Stats : BaseModel
 {
     [PrimaryKey("question_id")]
-    public long QuestionId {get;set;}
+    public long QuestionId { get; set; }
 
     [Column("normal")]
-    public long NormalAnswers {get;set;}
+    public long NormalAnswers { get; set; }
 
     [Column("nah")]
-    public long NahAnswers {get;set;}
+    public long NahAnswers { get; set; }
 
     [Column("total_answers")]
-    public long TotalAnswers {get;set;}
+    public long TotalAnswers { get; set; }
 }
