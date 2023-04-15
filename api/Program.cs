@@ -20,7 +20,14 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddSingleton<IQuestionRetriever, QuestionRetriever>();
 builder.Services.AddSingleton<IQuestionCacheRetriever, QuestionCacheRetriever>();
 builder.Services.AddSingleton(Random.Shared);
+builder.Services.AddSingleton(d =>
+    new SupbaseConfiguration
+    {
+      SupabaseUrl = builder.Configuration["SupabaseUrl"] ?? throw new ArgumentNullException("No Database url"),
+      SupabaseToken = builder.Configuration["SupabaseToken"] ?? throw new ArgumentNullException("No database token")
 
+
+    });
 var app = builder.Build();
 
 app.MapPost("/questions",
@@ -131,3 +138,8 @@ app.MapPost("/questions/{questionId}/stat",
 
 app.Run();
 
+public class SupbaseConfiguration 
+{
+  public string SupabaseUrl {get;set;} = string.Empty;
+  public string SupabaseToken {get;set;} = string.Empty;
+}
