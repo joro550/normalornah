@@ -1,11 +1,20 @@
+import { QuestionApi } from "@/app/question/api/question-api";
 import Link from "next/link";
 
-export default function StatsPage({ id }) {
+export default async function StatsPage({ id }: { id: number }) {
+  const questionApi = new QuestionApi();
+  let questionStats = await questionApi.getStats(id);
+
+  let nahPercentage =
+    (questionStats.nahAnswers / questionStats.totalAnswers) * 100;
+  let normalPercentage =
+    (questionStats.normalAnswers / questionStats.totalAnswers) * 100;
+
   const myStyle = {
     width: "200px",
     height: "200px",
-    backgroundImage: "conic-gradient(orange 64%, red 37%)",
-    border_radius: "50%",
+    backgroundImage: `conic-gradient(orange ${nahPercentage}%, red ${normalPercentage}%)`,
+    border_radius: `50%`,
   };
 
   return (
@@ -36,7 +45,7 @@ export default function StatsPage({ id }) {
                 ></div>
               </td>
               <td className="px-6 py-4">Normal</td>
-              <td className="px-6 py-4">50%</td>
+              <td className="px-6 py-4">{normalPercentage}%</td>
             </tr>
 
             <tr className="bg-white border-b ">
@@ -50,7 +59,7 @@ export default function StatsPage({ id }) {
                 ></div>
               </th>
               <td className="px-6 py-4">Nah</td>
-              <td className="px-6 py-4">50%</td>
+              <td className="px-6 py-4">{nahPercentage}%</td>
             </tr>
           </tbody>
         </table>
@@ -85,7 +94,7 @@ export default function StatsPage({ id }) {
                     p-10 
                     rounded-md 
                     m-5"
-        href="/stats/1"
+        href=""
       >
         Submit a question
       </Link>
