@@ -15,7 +15,7 @@ export class QuestionApi {
     questionAnswer: QuestionAnswer
   ): Promise<boolean> {
     let result = await fetch(
-      `http://localhost:5101/questions/${questionId}/stats`,
+      `http://localhost:5101/questions/${questionId}/stat`,
       {
         method: "post",
         headers: {
@@ -29,7 +29,7 @@ export class QuestionApi {
 
   public async getStats(questionId: number): Promise<QuestionStat> {
     let result = await fetch(
-      `http://localhost:5101/questions/${questionId}/stats`,
+      `http://localhost:5101/questions/${questionId}/stat`,
       {
         cache: "no-cache",
       }

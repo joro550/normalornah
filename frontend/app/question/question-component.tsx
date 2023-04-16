@@ -2,27 +2,40 @@
 
 import { useRouter } from "next/navigation";
 import { QuestionAnswer } from "./models/question-answer";
+import { QuestionApi } from "./api/question-api";
+import { QuestionModel } from "./models/question-model";
 
-const QuestionComponent = () => {
-    const router = useRouter();
-    const isEnabled = true;
+export type QuestionComponentProps = {
+  question: QuestionModel;
+};
 
-    const pushStat = (answer : QuestionAnswer) => {
-        router.push('/stats')
-    }
+const QuestionComponent =  (props: QuestionComponentProps) => {
+  const router = useRouter();
 
+  const questionApi = new QuestionApi();
+  let isEnabled = true;
 
-    return (
-        <div>
-            <div className="mt-10 rounded
+  const pushStat = async (answer: QuestionAnswer) => {
+    if (!isEnabled) return;
+
+    isEnabled = false;
+    await questionApi.pushStat(props.question.id, answer);
+    router.push(`/stats/${props.question.id}`);
+  };
+
+  return (
+    <div>
+      <div
+        className="mt-10 rounded
                 block text-center w-80 md:w-full 
                 mx-auto pt-20 pb-20 bg-white border 
                 border-gray-200 shadow"
-            >
-                <p className="font-normal text-center">Eating pasta from the pan</p>
-            </div>
-            <div className="md:flex text-center mt-10">
-                <button className='hover:shadow 
+      >
+        <p className="font-normal text-center">{props.question.text}</p>
+      </div>
+      <div className="md:flex text-center mt-10">
+        <button
+          className="hover:shadow 
                     w-80 
                     bg-white
                     mx-auto 
@@ -33,14 +46,14 @@ const QuestionComponent = () => {
                     hover:bg-gray-100
                     p-10 
                     rounded-md 
-                    m-5'
+                    m-5"
+          onClick={() => pushStat(QuestionAnswer.Normal)}
+        >
+          Normal
+        </button>
 
-                    onClick={() => pushStat(QuestionAnswer.Normal)}
-                >
-                    Normal
-                </button>
-
-                <button className='hover:shadow 
+        <button
+          className="hover:shadow 
                     w-80 
                     bg-white
                     mx-auto 
@@ -51,16 +64,14 @@ const QuestionComponent = () => {
                     hover:bg-gray-100
                     p-10 
                     rounded-md 
-                    m-5'
-
-                    onClick={() => pushStat(QuestionAnswer.Nah)}
-                >
-                    Nah
-                </button>
-            </div>
-        </div>
-
-    );
-}
+                    m-5"
+          onClick={() => pushStat(QuestionAnswer.Nah)}
+        >
+          Nah
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default QuestionComponent;
