@@ -1,4 +1,15 @@
-export default function QuestionComponent() {
+"use client";
+
+import { useRouter } from "next/navigation";
+import { QuestionAnswer } from "./models/question-answer";
+
+const QuestionComponent = () => {
+    const router = useRouter();
+    const isEnabled = true;
+
+    const pushStat = (answer : QuestionAnswer) => {
+        router.push('/stats')
+    }
 
 
     return (
@@ -23,6 +34,8 @@ export default function QuestionComponent() {
                     p-10 
                     rounded-md 
                     m-5'
+
+                    onClick={() => pushStat(QuestionAnswer.Normal)}
                 >
                     Normal
                 </button>
@@ -39,10 +52,15 @@ export default function QuestionComponent() {
                     p-10 
                     rounded-md 
                     m-5'
+
+                    onClick={() => pushStat(QuestionAnswer.Nah)}
                 >
                     Nah
                 </button>
             </div>
         </div>
-    )
+
+    );
 }
+
+export default QuestionComponent;

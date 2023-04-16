@@ -3,15 +3,21 @@ using api.Retriever;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-var databaseUrl = "";
-var databaseKey = "";
-
 var options = new Supabase.SupabaseOptions { AutoConnectRealtime = true };
+var builder = WebApplication.CreateBuilder(args);
+
+var databaseUrl =
+    builder.Configuration.GetValue<string>("SupabaseUrl")
+    ?? throw new ArgumentNullException("databaseUrl");
+
+var databaseKey =
+    builder.Configuration.GetValue<string>("SupabaseToken")
+    ?? throw new ArgumentNullException("databaseKey");
 
 var client = new Supabase.Client(databaseUrl, databaseKey, options);
 
-var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton(client);
+
 builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddSingleton<IQuestionRetriever, QuestionRetriever>();
