@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-br from-sky-200 to-red-700 min-h-screen">
+      <body className="overflow-hidden bg-slate-200 min-h-screen">
         {children}
       </body>
     </html>

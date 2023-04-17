@@ -19,7 +19,7 @@ const QuestionComponent =  (props: QuestionComponentProps) => {
     if (!isEnabled) return;
 
     isEnabled = false;
-    await questionApi.pushStat(props.question.id, answer);
+    // await questionApi.pushStat(props.question.id, answer);
     router.push(`/stats/${props.question.id}`);
   };
 

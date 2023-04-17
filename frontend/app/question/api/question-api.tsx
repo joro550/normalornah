@@ -38,6 +38,7 @@ export class QuestionApi {
         cache: "no-cache",
       }
     );
+    console.log(await result.json());
     return (await result.json()) as QuestionStat;
   }
 }

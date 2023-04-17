@@ -1,9 +1,12 @@
 import { QuestionApi } from "@/app/question/api/question-api";
 import Link from "next/link";
 
-export default async function StatsPage({ id }: { id: number }) {
+type StatsPageProps = {
+  questionId: number;
+};
+const StatsPage = async (props: StatsPageProps) => {
   const questionApi = new QuestionApi();
-  let questionStats = await questionApi.getStats(id);
+  let questionStats = { normalAnswers: 1, nahAnswers: 0, totalAnswers: 1 };
 
   let nahPercentage =
     (questionStats.nahAnswers / questionStats.totalAnswers) * 100;
@@ -11,17 +14,17 @@ export default async function StatsPage({ id }: { id: number }) {
     (questionStats.normalAnswers / questionStats.totalAnswers) * 100;
 
   const myStyle = {
-    width: "200px",
-    height: "200px",
     backgroundImage: `conic-gradient(orange ${nahPercentage}%, red ${normalPercentage}%)`,
     border_radius: `50%`,
   };
 
   return (
-    <div className="mx-auto space-y-10">
-      <div className="mx-auto rounded-full mt-10" style={myStyle}></div>
-
-      <div className="overflow-x-auto">
+    <div className="flex flex-col space-y-5">
+      <div
+        className="h-40 w-40 mx-auto rounded-full mt-5"
+        style={myStyle}
+      ></div>
+      <div className="">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -64,40 +67,45 @@ export default async function StatsPage({ id }: { id: number }) {
           </tbody>
         </table>
       </div>
-
       <Link
+        href="/"
         className="hover:shadow 
                     w-80 
                     bg-white
                     mx-auto 
+                    md:w-1/2 
                     border 
                     border-gray-300 
                     hover:border-gray-100
                     hover:bg-gray-100
-                    p-10 
+                    p-5 
                     rounded-md 
-                    m-5"
-        href="/"
+                text-center
+                    m-3"
       >
         Next
       </Link>
 
       <Link
+        href="/"
         className="hover:shadow 
                     w-80 
                     bg-white
                     mx-auto 
+                    md:w-1/2 
                     border 
                     border-gray-300 
                     hover:border-gray-100
                     hover:bg-gray-100
-                    p-10 
+                    p-5 
                     rounded-md 
-                    m-5"
-        href=""
+                text-center
+                    m-3"
       >
         Submit a question
       </Link>
     </div>
   );
-}
+};
+
+export default StatsPage;
