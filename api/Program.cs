@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 var options = new Supabase.SupabaseOptions { AutoConnectRealtime = true };
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(
+    options =>
+        options.AddDefaultPolicy(
+            policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+        )
+);
 var databaseUrl =
     builder.Configuration.GetValue<string>("SupabaseUrl")
     ?? throw new ArgumentNullException("databaseUrl");
@@ -26,6 +32,7 @@ builder.Services.AddSingleton(Random.Shared);
 
 var app = builder.Build();
 
+app.UseCors();
 app.MapPost(
     "/questions",
     async ([FromBody] CreateQuestionModel model, Supabase.Client client, IMapper mapper) =>

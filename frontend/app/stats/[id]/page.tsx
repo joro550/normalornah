@@ -1,22 +1,32 @@
 import { QuestionApi } from "@/app/question/api/question-api";
 import Link from "next/link";
 
-type StatsPageProps = {
-  questionId: number;
-};
-const StatsPage = async (props: StatsPageProps) => {
+const StatsPage = async ({ params }) => {
   const questionApi = new QuestionApi();
-  let questionStats = { normalAnswers: 1, nahAnswers: 0, totalAnswers: 1 };
+  let questionStats = await questionApi.getStats(params.id);
 
-  let nahPercentage =
-    (questionStats.nahAnswers / questionStats.totalAnswers) * 100;
-  let normalPercentage =
-    (questionStats.normalAnswers / questionStats.totalAnswers) * 100;
+  let nahPercentage = Math.round(
+    (questionStats.nahAnswers / questionStats.totalAnswers) * 100
+  );
+  let normalPercentage = Math.round(
+    (questionStats.normalAnswers / questionStats.totalAnswers) * 100
+  );
+
+  function getColor(normalPercentage: number, nahPercentage: number) {
+    if (normalPercentage == 0 && nahPercentage == 0) return "black 100%";
+    else if (normalPercentage == 0) return "orange 100%";
+    else if (nahPercentage == 0) return "red 100%";
+    else return `orange ${nahPercentage}%, red ${normalPercentage}%`;
+  }
 
   const myStyle = {
-    backgroundImage: `conic-gradient(orange ${nahPercentage}%, red ${normalPercentage}%)`,
+    backgroundImage: `conic-gradient(${getColor(
+      normalPercentage,
+      nahPercentage
+    )})`,
     border_radius: `50%`,
   };
+  console.log(myStyle);
 
   return (
     <div className="flex flex-col space-y-5">

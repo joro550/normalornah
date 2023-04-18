@@ -9,7 +9,7 @@ export type QuestionComponentProps = {
   question: QuestionModel;
 };
 
-const QuestionComponent =  (props: QuestionComponentProps) => {
+const QuestionComponent = (props: QuestionComponentProps) => {
   const router = useRouter();
 
   const questionApi = new QuestionApi();
@@ -19,7 +19,7 @@ const QuestionComponent =  (props: QuestionComponentProps) => {
     if (!isEnabled) return;
 
     isEnabled = false;
-    // await questionApi.pushStat(props.question.id, answer);
+    await questionApi.pushStat(props.question.id, { answer: answer });
     router.push(`/stats/${props.question.id}`);
   };
 

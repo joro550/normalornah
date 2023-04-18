@@ -1,5 +1,5 @@
 import { QuestionModel } from "../models/question-model";
-import { QuestionAnswer } from "../models/question-answer";
+import { QuestionAnswerModel } from "../models/question-answer";
 import { QuestionStat } from "../models/question-stats";
 import { UserRepository } from "@/library/user-repository";
 
@@ -13,7 +13,7 @@ export class QuestionApi {
 
   public async pushStat(
     questionId: number,
-    questionAnswer: QuestionAnswer
+    questionAnswer: QuestionAnswerModel
   ): Promise<boolean> {
     console.log(`https://localhost:5101/questions/${questionId}/stat`);
     let userId = UserRepository.getUser();
@@ -22,6 +22,7 @@ export class QuestionApi {
       {
         method: "post",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
           userId: userId,
         },
@@ -38,7 +39,6 @@ export class QuestionApi {
         cache: "no-cache",
       }
     );
-    console.log(await result.json());
     return (await result.json()) as QuestionStat;
   }
 }

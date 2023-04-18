@@ -4,5 +4,5 @@ export enum QuestionAnswer {
 };
 
 export type QuestionAnswerModel = {
-    questionAnswer: QuestionAnswer,
+    answer: QuestionAnswer,
 }
