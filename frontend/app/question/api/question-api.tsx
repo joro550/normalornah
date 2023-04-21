@@ -41,4 +41,17 @@ export class QuestionApi {
     );
     return (await result.json()) as QuestionStat;
   }
+
+  public async submitQuestion() {
+    let result = await fetch('https://localhost:5101/question',
+      { 
+        method : 'post',
+        headers:{
+          Accept: 'application/json',
+          "Content-Type": "application/json"
+        },
+        body : JSON.stringify({})
+      })
+    return result.ok;
+  }
 }
