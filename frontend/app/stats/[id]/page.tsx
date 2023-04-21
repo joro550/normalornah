@@ -26,7 +26,6 @@ const StatsPage = async ({ params }) => {
     )})`,
     border_radius: `50%`,
   };
-  console.log(myStyle);
 
   return (
     <div className="flex flex-col space-y-5">
@@ -97,7 +96,7 @@ const StatsPage = async ({ params }) => {
       </Link>
 
       <Link
-        href="/"
+        href="/question/new"
         className="hover:shadow 
                     w-80 
                     bg-white

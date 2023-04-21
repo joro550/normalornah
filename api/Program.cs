@@ -12,6 +12,7 @@ builder.Services.AddCors(
             policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
         )
 );
+
 var databaseUrl =
     builder.Configuration.GetValue<string>("SupabaseUrl")
     ?? throw new ArgumentNullException("databaseUrl");
@@ -35,7 +36,9 @@ var app = builder.Build();
 app.UseCors();
 app.MapPost(
     "/questions",
-    async ([FromBody] CreateQuestionModel model, Supabase.Client client, IMapper mapper) =>
+    async ([FromBody] CreateQuestionModel model,
+           Supabase.Client client,
+           IMapper mapper) =>
     {
         var question = await client
             .From<Question>()
@@ -81,7 +84,10 @@ app.MapGet(
 
 app.MapGet(
     "/questions/{questionId}/stat",
-    async (int questionId, IQuestionRetriever retriever, Supabase.Client client, IMapper mapper) =>
+    async (int questionId,
+           IQuestionRetriever retriever,
+           Supabase.Client client,
+           IMapper mapper) =>
     {
         var question = await retriever.GetQuestion(questionId);
         return await question.Match(
