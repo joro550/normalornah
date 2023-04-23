@@ -27,16 +27,16 @@ const QuestionComponent = (props: QuestionComponentProps) => {
     <div>
       <div
         className="mt-10 rounded
-                block text-center w-80 md:w-full 
-                mx-auto pt-20 pb-20 bg-white border 
-                border-gray-200 shadow"
+                block text-center w-full md:w-full 
+                mx-auto pt-12 pb-12 bg-white border 
+                border-gray-200 shadow-zinc-800 shadow-lg"
       >
         <p className="font-normal text-center">{props.question.text}</p>
       </div>
-      <div className="md:flex text-center mt-10">
+      <div className="md:flex text-center mt-7">
         <button
           className="hover:shadow 
-                    w-80 
+                    w-72 
                     bg-white
                     mx-auto 
                     md:w-1/2 
@@ -54,7 +54,7 @@ const QuestionComponent = (props: QuestionComponentProps) => {
 
         <button
           className="hover:shadow 
-                    w-80 
+                    w-72 
                     bg-white
                     mx-auto 
                     md:w-1/2 
