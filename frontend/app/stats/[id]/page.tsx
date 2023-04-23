@@ -32,11 +32,11 @@ const StatsPage = async ({ params }) => {
         data ={data}
         options={options}
         width={"100%"}
-        height={"300px"}
+        height={"250px"}
       />
       
-      <div className="">
-        <table className="w-full text-sm text-left text-gray-500 ">
+      <div className="flex mx-auto">
+        <table className=" w-72 text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -49,13 +49,13 @@ const StatsPage = async ({ params }) => {
           </thead>
           <tbody>
             <tr className="bg-white border-b ">
-              <td className="px-6 py-4">Normal</td>
-              <td className="px-6 py-4">{normalPercentage}%</td>
+              <td className="text-gray-700 px-6 py-3">Normal</td>
+              <td className="px-6 py-3">{normalPercentage}%</td>
             </tr>
 
             <tr className="bg-white border-b ">
-              <td className="px-6 py-4">Nah</td>
-              <td className="px-6 py-4">{nahPercentage}%</td>
+              <td className="text-gray-700 px-6 py-3">Nah</td>
+              <td className="px-6 py-3">{nahPercentage}%</td>
             </tr>
           </tbody>
         </table>
@@ -63,7 +63,7 @@ const StatsPage = async ({ params }) => {
       <Link
         href="/"
         className="hover:shadow 
-                    w-80 
+                    w-72 
                     bg-white
                     mx-auto 
                     md:w-1/2 
@@ -71,7 +71,7 @@ const StatsPage = async ({ params }) => {
                     border-gray-300 
                     hover:border-gray-100
                     hover:bg-gray-100
-                    p-5 
+                    p-3 
                     rounded-md 
                     text-center
                     m-3"
@@ -82,7 +82,7 @@ const StatsPage = async ({ params }) => {
       <Link
         href="/question/new"
         className="hover:shadow 
-                    w-80 
+                    w-72 
                     bg-white
                     mx-auto 
                     md:w-1/2 
@@ -90,7 +90,7 @@ const StatsPage = async ({ params }) => {
                     border-gray-300 
                     hover:border-gray-100
                     hover:bg-gray-100
-                    p-5 
+                    p-3 
                     rounded-md 
                     text-center
                     m-3"
