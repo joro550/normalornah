@@ -1,5 +1,8 @@
+"use client"
 import { QuestionApi } from "@/app/question/api/question-api";
+
 import Link from "next/link";
+import { Chart } from "react-google-charts";
 
 const StatsPage = async ({ params }) => {
   const questionApi = new QuestionApi();
@@ -12,34 +15,30 @@ const StatsPage = async ({ params }) => {
     (questionStats.normalAnswers / questionStats.totalAnswers) * 100
   );
 
-  function getColor(normalPercentage: number, nahPercentage: number) {
-    if (normalPercentage == 0 && nahPercentage == 0) return "black 100%";
-    else if (normalPercentage == 0) return "orange 100%";
-    else if (nahPercentage == 0) return "red 100%";
-    else return `orange ${nahPercentage}%, red ${normalPercentage}%`;
-  }
+  const data = [
+    ["Title", "Amount"],
+    ["Normal", questionStats.normalAnswers],
+    ["Nah", questionStats.nahAnswers]
+  ]
 
-  const myStyle = {
-    backgroundImage: `conic-gradient(${getColor(
-      normalPercentage,
-      nahPercentage
-    )})`,
-    border_radius: `50%`,
-  };
+  const options = {
+    title : "Normal vs Nah"
+  }
 
   return (
     <div className="flex flex-col space-y-5">
-      <div
-        className="h-40 w-40 mx-auto rounded-full mt-5"
-        style={myStyle}
-      ></div>
+      <Chart
+        chartType="PieChart"
+        data ={data}
+        options={options}
+        width={"100%"}
+        height={"300px"}
+      />
+      
       <div className="">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" className="px-6 py-3">
-                Colour
-              </th>
               <th scope="col" className="px-6 py-3">
                 Name
               </th>
@@ -50,26 +49,11 @@ const StatsPage = async ({ params }) => {
           </thead>
           <tbody>
             <tr className="bg-white border-b ">
-              <td className="px-6 py-4">
-                <div
-                  style={{ backgroundColor: "red" }}
-                  className="h-5 w-5"
-                ></div>
-              </td>
               <td className="px-6 py-4">Normal</td>
               <td className="px-6 py-4">{normalPercentage}%</td>
             </tr>
 
             <tr className="bg-white border-b ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                <div
-                  style={{ backgroundColor: "orange" }}
-                  className="h-5 w-5"
-                ></div>
-              </th>
               <td className="px-6 py-4">Nah</td>
               <td className="px-6 py-4">{nahPercentage}%</td>
             </tr>
@@ -89,7 +73,7 @@ const StatsPage = async ({ params }) => {
                     hover:bg-gray-100
                     p-5 
                     rounded-md 
-                text-center
+                    text-center
                     m-3"
       >
         Next
@@ -108,7 +92,7 @@ const StatsPage = async ({ params }) => {
                     hover:bg-gray-100
                     p-5 
                     rounded-md 
-                text-center
+                    text-center
                     m-3"
       >
         Submit a question
